@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <deployment-name>
+  labels:
+    name: <deployment-name>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: <pod-name>
+  template:
+    metadata:
+      labels:
+        app: <pod-name>
+
+    spec:
+      containers:
+        - name: server
+          image: eu.gcr.io/PROJECT_ID/IMAGE:TAG
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+            limits:
+              cpu: 100m
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3000"
